@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build
+
+      # Exportierte Testschrift mit OTS prüfen, dem Prüfer, den Chrome und Firefox verwenden.
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+      - run: pip install fonttools brotli opentype-sanitizer
+      - run: node spikes/export-spike.ts
+      - run: |
+          python -m ots spikes/out/FontWishSpike.otf
+          python -m ots spikes/out/FontWishSpike.woff2
