@@ -1,0 +1,31 @@
+:root {
+  --bg: #f6f4ef;
+  --ink: #1b1a17;
+  --muted: #6d6a62;
+  color-scheme: light dark;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #161513;
+    --ink: #f1eee6;
+    --muted: #a29e93;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+}
+
+.placeholder {
+  max-width: 40rem;
+  margin: 20vh auto 0;
+  padding: 0 16px;
+}
+
+.placeholder p {
+  color: var(--muted);
+}
